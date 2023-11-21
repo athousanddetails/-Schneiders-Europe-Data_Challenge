@@ -12,3 +12,19 @@ The goal is to create a model capable of predicting the country (from a list of 
 The countries to focus on are: Spain, UK, Germany, Denmark, Sweden, Hungary, Italy, Poland, and the Netherlands.
 
 The solution must not only align with Schneider Electric's ethos but also go beyond its current offerings, presenting an unprecedented approach.
+
+## Approach to the Problem 
+
+The whole idea was to Resample the data in 1H Time Frames, and then interpolate (as per challenge rules) the time frames of a said hour. If a full hour frame was missing it was ignored. 
+Duplicates were removed, and all NaN information was filled by 0 (as per challenge rules). 
+
+As for processing, we created a new Feature called Label, which is basically the result of the substracion of the Energy Load minus the Green Energy availble at the said time. 
+We applied this in a way that the Label result is a number that represents the country with the higher surplus of energy, which is what we want to have as target for prediction. 
+
+We trained the data with an ARIMA model to predict the country with the most surplus of available green energy in the next hour. 
+
+## Conclusions
+
+The hard and key part was the resampling methodology to unsure the data was ok. 
+We are not fond of interpolating or keeping NaN because in this case they don't represent the reality. From our point of view the Missing Information should've been discard for the prediction, but those were the rules. 
+Other than that it was a very streamlined process and a very enjoyable and challenging problem to solve. 
